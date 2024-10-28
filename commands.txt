@@ -1,0 +1,8 @@
+php artisan make:model Category -a
+php artisan make:model Product -a
+php artisan make:controller PublicCategoryController
+php artisan make:controller PublicProductController
+php artisan make:resource CategoryResource
+php artisan make:resource PublicCategoryResource
+php artisan make:resource ProductResource
+php artisan make:resource PublicProductResource

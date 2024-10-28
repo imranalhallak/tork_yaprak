@@ -12,7 +12,7 @@ const goToCategory = (id) => {
     route('category', {  category: id })
 };
 // Define the menu items array as a reactive reference
-const menuItems = ref(props.$categories.data.categories ); // Ensure it's a reactive reference
+const menuItems = ref(props.branch.data.categories || []); // Ensure it's a reactive reference
 // Define a reactive array to track which items have animated in
 const enteredItems = ref([]);
 
@@ -27,7 +27,7 @@ const animateMenuItems = () => {
 };
 
 // Watch for changes in the branch's categories and update menuItems accordingly
-watch(() => props.$categories.data, (newCategories) => {
+watch(() => props.branch.data.categories, (newCategories) => {
     menuItems.value = newCategories; // Update menuItems
     animateMenuItems(); // Re-run animation when categories change
 }, { immediate: true }); // This ensures that it updates on initial mount as well
@@ -46,22 +46,24 @@ onMounted(() => {
 
         <div class="text-center mb-10">
             <div class="logo text-6xl mb-2 mt-10">
-                <img alt="item.english_name" class="w-full h-auto rounded-lg m-auto" :src="`logo.png`"
+                <img alt="item.english_name" class="w-full h-auto rounded-lg m-auto" :src="`../../${branch.data.logo}`"
                     style="width: 180px;  " />
             </div>
 
             <!-- Centered div with width 500px -->
             <div class="centered-div" style="width:100vw;">
-
-                        <div class="col col-md-6">
+                <ul>
+                    <li>
+                        <div class="col">
                             <Link v-for="(item, index) in menuItems" :key="index"
                                 :class="['w-full h-auto   menu-item2', { 'enter': enteredItems.includes(index) }]"
-                                :href="route('category', {  category: item.id })"
+                                :href="route('branch.category', { branch: props.branch.data.id, category: item.id })"
                                 :style="{ transitionDuration: (0.3 + index * 0.2) + 's' }">
                             {{ item.arabic_name }}
                             </Link>
                         </div>
-
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
