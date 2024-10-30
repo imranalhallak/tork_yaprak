@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch,getCurrentInstance } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import LangSwitcher from "@/Components/LangSwitcher.vue";
+import ToggleLight from "@/Components/ToggleLight.vue";
 import Logo from "@/Components/Logo.vue";
 
 const { t } = useI18n();
@@ -11,20 +11,26 @@ const { locale } = useI18n();
 // Reactive variable to track the selected language
 const language = ref('en'); // Default language
 
+const { appContext } = getCurrentInstance();
+const globalLanguage = appContext.config.globalProperties.$globalLanguage;
 // Load saved language from local storage on mount
 onMounted(() => {
-    const savedLanguage = localStorage.getItem('language') || 'en';
-    language.value = savedLanguage;
-    console.log(savedLanguage);
-    console.log(locale);
-    document.documentElement.setAttribute('dir', savedLanguage === 'ar' ? 'rtl' : 'ltr');
+    const { appContext } = getCurrentInstance();
+
+
+    document.documentElement.setAttribute('dir', globalLanguage.selectedLanguage === 'ar' ? 'rtl' : 'ltr');
+
+
 });
 
 // Watch for language changes and update direction accordingly
-watch(language, (newLang) => {
-    localStorage.setItem('language', newLang); // Save to local storage
-    document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
-});
+watch(
+            () => globalLanguage.selectedLanguage,
+            (newLanguage) => {
+                document.documentElement.setAttribute('dir', globalLanguage.selectedLanguage === 'ar' ? 'rtl' : 'ltr');
+
+            }
+        );
 // const svgList = [
 //     <svg width="48" height="48" fill="none" aria-hidden="true" class="mb-6 text-pink-500 dark:text-pink-400"><path d="M5 11a4 4 0 0 1 4-4h30a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V11Z" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-width="2"></path><path d="M15 7v34" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>,
 //     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#a39268" class="m-auto bi bi-journal" viewBox="0 0 16 16">
@@ -60,8 +66,7 @@ onMounted(() => {
 
 <template>
     <div>
-        <LangSwitcher style="position: fixed; direction: rtl; text-align: right;" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <ToggleLight style="position: fixed; direction: rtl; text-align: right;" />        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
         <div class="m-auto">
             <Logo class="w-52 m-auto" />

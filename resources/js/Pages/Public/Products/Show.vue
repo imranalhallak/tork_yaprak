@@ -1,10 +1,12 @@
 <script setup>
-import { ref, onMounted , watch} from 'vue';
+import { ref, onMounted , watch, getCurrentInstance,} from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import BackButton from "@/Components/BackButton.vue";
 import { useI18n } from 'vue-i18n';
-import LangSwitcher from "@/Components/LangSwitcher.vue";
 
+// Access the global language variable
+const { appContext } = getCurrentInstance();
+const globalLanguage = appContext.config.globalProperties.$globalLanguage;
 const { t } = useI18n();
 const props = usePage().props;
 const { locale } = useI18n();
@@ -13,18 +15,14 @@ const language = ref('en'); // Default language
 
 // Load saved language from local storage on mount
 onMounted(() => {
+    const { appContext } = getCurrentInstance();
 
-    const savedLanguage = localStorage.getItem('language') || 'en';
-    language.value = savedLanguage;
-    console.log(locale);
-    document.documentElement.setAttribute('dir', savedLanguage === 'ar' ? 'rtl' : 'ltr');
+
+    document.documentElement.setAttribute('dir', globalLanguage.selectedLanguage === 'ar' ? 'rtl' : 'ltr');
 });
 
 // Watch for language changes and update direction accordingly
-watch(language, (newLang) => {
-    localStorage.setItem('language', newLang); // Save to local storage
-    document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
-});
+
 defineProps({
     product: {
         type: Object
@@ -35,6 +33,7 @@ const productTitle = ref(null);
 </script>
 
 <template>
+
     <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden mt-10">
         <div class="bg-white p-4 flex justify-between items-center">
 

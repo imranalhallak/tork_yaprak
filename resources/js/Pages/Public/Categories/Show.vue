@@ -1,13 +1,21 @@
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, getCurrentInstance, watch } from 'vue';
 import Logo from "@/Components/Logo.vue";
 import BackButton from "@/Components/BackButton.vue";
 import { usePage,Link } from '@inertiajs/vue3'; // Ensure this is imported
 
+// Access the global language variable
+const { appContext } = getCurrentInstance();
+const globalLanguage = appContext.config.globalProperties.$globalLanguage;
 const props = usePage().props;
 // const goToCategory = (id) => {
+    onMounted(() => {
+    const { appContext } = getCurrentInstance();
 
+
+    document.documentElement.setAttribute('dir', globalLanguage.selectedLanguage === 'ar' ? 'rtl' : 'ltr');
+});
 // Define the menu items array as a reactive reference
 const menuItems = ref(props.category.data.categories || []); // Ensure it's a reactive reference
 // Define a reactive array to track which items have animated in
@@ -35,6 +43,7 @@ onMounted(() => {
 </script>
 
 <template>
+
     <div class="full-screen-container">
       <title></title>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
