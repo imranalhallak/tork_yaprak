@@ -11,9 +11,8 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'arabic_name',
-        'turkish_name',
-        'english_name',
+        'name',
+
         'image',
         'price',
         'code',
@@ -30,9 +29,7 @@ class Category extends Model
         return $query->where(function ($query) use ($request) {
             return $query->when($request->search, function ($query) use ($request) {
                 return $query->where(function ($query) use ($request) {
-                    $query->where('arabic_name', 'like', '%' . $request->search . '%')
-                        ->orWhere('english_name', 'like', '%' . $request->search . '%')
-                        ->orWhere('turkish_name', 'like', '%' . $request->search . '%')
+                    $query->where('name', 'like', '%' . $request->search . '%')
                         ;
                 });
             });

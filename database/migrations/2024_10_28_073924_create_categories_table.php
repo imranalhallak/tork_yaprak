@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
 
-         $table->string('arabic_name')->nullable();
-         $table->string('turkish_name')->nullable();
-         $table->string('english_name')->nullable();
+         $table->string('name')->nullable();
+
          $table->integer('position')->nullable();  // Add 'position' column after 'name', adjust as needed
 
-         $table->string('image')->nullable();
 
          $table->timestamps();
         });

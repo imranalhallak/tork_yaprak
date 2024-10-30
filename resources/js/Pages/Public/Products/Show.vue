@@ -1,8 +1,30 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted , watch} from 'vue';
 import { usePage } from '@inertiajs/vue3';
+import BackButton from "@/Components/BackButton.vue";
+import { useI18n } from 'vue-i18n';
+import LangSwitcher from "@/Components/LangSwitcher.vue";
 
+const { t } = useI18n();
 const props = usePage().props;
+const { locale } = useI18n();
+// Reactive variable to track the selected language
+const language = ref('en'); // Default language
+
+// Load saved language from local storage on mount
+onMounted(() => {
+
+    const savedLanguage = localStorage.getItem('language') || 'en';
+    language.value = savedLanguage;
+    console.log(locale);
+    document.documentElement.setAttribute('dir', savedLanguage === 'ar' ? 'rtl' : 'ltr');
+});
+
+// Watch for language changes and update direction accordingly
+watch(language, (newLang) => {
+    localStorage.setItem('language', newLang); // Save to local storage
+    document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
+});
 defineProps({
     product: {
         type: Object
@@ -15,28 +37,28 @@ const productTitle = ref(null);
 <template>
     <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden mt-10">
         <div class="bg-white p-4 flex justify-between items-center">
-            <img alt="logo" class="h-20" :src="`../../logo.png`" style="width:180;height:180;" />
+
             <span class="text-gray-700 font-semibold">
-                {{ product.category.english_name }}
+                {{ $t(product.category.name) }}
             </span>
         </div>
         <div class="relative">
-            <img alt="Pistachio Cocoa Cream chocolates" class="w-full" height="200" :src="`../../../${product.image}`" width="400" />
+            <img alt="Pistachio Cocoa Cream chocolates" class="w-full" height="200" :src="`../${product.image}`" width="400" />
         </div>
         <div class="p-4">
             <div class="bg-brown-700 text-white p-2 rounded-lg flex justify-between items-center animate-from-right" style="background-color: brown;">
-                <span>Code: {{ product.code }}</span>
+                <span>{{$t('Code')}}: {{ product.code }}</span>
                 <!-- <span>{{ product.price }} Piece/kg</span> -->
             </div>
             <div class="text-center mt-4">
 
                 <!-- Additional Product Details -->
-                <p v-if="product.type_of_spiral" class="text-gray-600 mt-2 animate-from-bottom">Type of Spiral: {{ product.type_of_spiral }}</p>
-                <p v-if="product.notebook_size" class="text-gray-600 mt-2 animate-from-bottom">Notebook Size: {{ product.notebook_size }}</p>
-                <p v-if="product.cover_type" class="text-gray-600 mt-2 animate-from-bottom">Cover Type: {{ product.cover_type }}</p>
-                <p v-if="product.paper_weight" class="text-gray-600 mt-2 animate-from-bottom">Paper Weight: {{ product.paper_weight }}</p>
-                <p v-if="product.number_of_pages" class="text-gray-600 mt-2 animate-from-bottom">Number of Pages: {{ product.number_of_pages }}</p>
-                <p v-if="product.notebook_ruling" class="text-gray-600 mt-2 animate-from-bottom">Notebook Ruling: {{ product.notebook_ruling }}</p>
+                <p v-if="product.type_of_spiral" class="text-gray-600 mt-2 animate-from-bottom">{{ $t('Typre of Spiral') }}: {{ $t(product.type_of_spiral) }}</p>
+                <p v-if="product.notebook_size" class="text-gray-600 mt-2 animate-from-bottom">{{$t('Notebook Size')}}: {{ $t(product.notebook_size) }}</p>
+                <p v-if="product.cover_type" class="text-gray-600 mt-2 animate-from-bottom">{{$t('Cover Type')}}: {{ $t(product.cover_type) }}</p>
+                <p v-if="product.paper_weight" class="text-gray-600 mt-2 animate-from-bottom">{{$t('Paper Weight')}}: {{ $t(product.paper_weight) }}</p>
+                <p v-if="product.number_of_pages" class="text-gray-600 mt-2 animate-from-bottom">{{$t('Number of Pages')}}: {{ $t(product.number_of_pages) }}</p>
+                <p v-if="product.notebook_ruling" class="text-gray-600 mt-2 animate-from-bottom">{{$t('Notebook Ruling')}}: {{ $t(product.notebook_ruling) }}</p>
             </div>
         </div>
         <div class="p-4 flex justify-end">
@@ -45,6 +67,7 @@ const productTitle = ref(null);
             </button>
         </div>
     </div>
+    <BackButton/>
 </template>
 
 <style scoped>

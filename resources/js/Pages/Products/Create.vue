@@ -20,6 +20,7 @@ const form = useForm({
   category_id: "",
   image: null,
   notebook_size: "",
+  type_of_spiral:"",
   cover_type: "",
   paper_weight: "",
   number_of_pages: "",
@@ -87,7 +88,7 @@ const createProduct = () => {
                     >
                       <option disabled value="">Select a category</option>
                       <option v-for="category in categories" :key="category.id" :value="category.id">
-                        {{ category.arabic_name }}
+                        {{ category.name }}
                       </option>
                     </select>
                     <InputError :message="form.errors.arabic_description" class="mt-2" />
@@ -105,6 +106,19 @@ const createProduct = () => {
                       }"
                     />
                     <InputError :message="form.errors.notebook_size" class="mt-2" />
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="type_of_spiral" class="block text-sm font-medium text-gray-700">Type of Spiral</label>
+                    <input
+                      v-model="form.type_of_spiral"
+                      type="text"
+                      id="type_of_spiral"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      :class="{
+                        'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': form.errors.type_of_spiral,
+                      }"
+                    />
+                    <InputError :message="form.errors.type_of_spiral" class="mt-2" />
                   </div>
 
                   <div class="col-span-6 sm:col-span-3">
@@ -163,7 +177,7 @@ const createProduct = () => {
                     <InputError :message="form.errors.notebook_ruling" class="mt-2" />
                   </div>
 
-         
+
                   <div class="col-span-6 sm:col-span-3">
                     <label
                       for="code"

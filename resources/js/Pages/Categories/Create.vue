@@ -8,10 +8,7 @@ import { watch, ref } from "vue";
 let sections = ref({});
 
 const form = useForm({
-  arabic_name: "",
-  english_name: "",
-  turkish_name: "",
-  image: null,
+  name: "",
 });
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
@@ -61,65 +58,26 @@ const createCategory = () => {
                 <div class="grid grid-cols-6 gap-6">
                   <div class="col-span-6 sm:col-span-3">
                     <label
-                      for="arabic_name"
+                      for="name"
                       class="block text-sm font-medium text-gray-700"
-                      >Arabic Name</label
+                      >Name</label
                     >
                     <input
-                      v-model="form.arabic_name"
+                      v-model="form.name"
                       type="text"
                       id="name"
                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       :class="{
                         'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                          form.errors.arabic_name,
+                          form.errors.name,
                       }"
                     />
-                    <InputError :message="form.errors.arabic_name" class="mt-2" />
-                  </div>
-                  <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="english_name"
-                      class="block text-sm font-medium text-gray-700"
-                      >English Name</label
-                    >
-                    <input
-                      v-model="form.english_name"
-                      type="text"
-                      id="name"
-                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      :class="{
-                        'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                          form.errors.english_name,
-                      }"
-                    />
-                    <InputError :message="form.errors.english_name" class="mt-2" />
-                  </div>
-                  <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="turkish_name"
-                      class="block text-sm font-medium text-gray-700"
-                      >Turkish Name</label
-                    >
-                    <input
-                      v-model="form.turkish_name"
-                      type="text"
-                      id="name"
-                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      :class="{
-                        'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                          form.errors.turkish_name,
-                      }"
-                    />
-                    <InputError :message="form.errors.turkish_name" class="mt-2" />
+                    <InputError :message="form.errors.name" class="mt-2" />
                   </div>
 
 
-                  <div>
-                    <label for="image">Image</label>
-                    <input type="file" @change="handleImageUpload" id="image" />
-                    <span v-if="form.errors.image">{{ form.errors.image }}</span>
-                  </div>
+
+
                 </div>
               </div>
               <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

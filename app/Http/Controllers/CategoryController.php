@@ -45,17 +45,17 @@ class CategoryController extends Controller
     // Store a newly created category in storage.
     public function store(StoreCategoryRequest $request)
     {
-        if ($request->hasFile('image')) {
-            // Store the image in 'public/images' and get the relative path
-            $validated['image'] = $request->file('image')->store('category_images', 'public');
-        }
+        // if ($request->hasFile('image')) {
+        //     // Store the image in 'public/images' and get the relative path
+        //     $validated['image'] = $request->file('image')->store('category_images', 'public');
+        // }
         $data = $request->validated();
 
 
-        $request->file('image')->move('category_images', $validated['image']);
+        // $request->file('image')->move('category_images', $validated['image']);
 
         $category = Category::create($data); // Create a new category
-        $category->image = $validated['image'];
+        // $category->image = $validated['image'];
         $category->save();
 
 
@@ -90,22 +90,22 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         // Validate the incoming request
 
-        if ($request->hasFile('image')) {
-            $request->validate([
-                'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048', ]
+        // if ($request->hasFile('image')) {
+        //     $request->validate([
+        //         'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048', ]
 
-            );
-            // Store the image in 'public/images' and get the relative path
-            $validated['image'] = $request->file('image')->store('category_images', 'public');
-        }
+        //     );
+        //     // Store the image in 'public/images' and get the relative path
+        //     $validated['image'] = $request->file('image')->store('category_images', 'public');
+        // }
 
 
         $category->update($request->validated());
-        if ($request->hasFile('image')) {
-        $request->file('image')->move('category_images', $validated['image']);
-        $category->image = $validated['image'];
-        $category->save();
-        }
+        // if ($request->hasFile('image')) {
+        // $request->file('image')->move('category_images', $validated['image']);
+        // $category->image = $validated['image'];
+        // $category->save();
+        // }
 
         // Redirect back to a view or send a success message
         return redirect()->route('categories.index')->with('success', 'Category updated successfully!');

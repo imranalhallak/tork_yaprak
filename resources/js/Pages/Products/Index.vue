@@ -140,29 +140,18 @@ const deleteProduct = (productId) => {
                         >
                           ID
                         </th>
-                        <th
-                          scope="col"
-                          class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                        >
-                          Arabic Name
-                        </th>
-                        <th
-                          scope="col"
-                          class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                        >
-                          English Name
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                        >
-                          Turkish Name
-                        </th>
+
                         <th
                           scope="col"
                           class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                         >
                           Category
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                        Type of spiral
                         </th>
                         <th
                           scope="col"
@@ -198,19 +187,12 @@ const deleteProduct = (productId) => {
                         >
                           {{ product.id }}
                         </td>
-                        <td
-                          class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                        >
-                          {{ product.arabic_name }}
+
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {{ product.category.name }}
                         </td>
                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {{ product.turkish_name }}
-                        </td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {{ product.english_name }}
-                        </td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {{ product.category.arabic_name }}
+                          {{ product.type_of_spiral }}
                         </td>
                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {{ product.code }}

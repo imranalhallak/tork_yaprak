@@ -16,9 +16,7 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'arabic_name' => $this->arabic_name,
-            'turkish_name' => $this->turkish_name,
-            'english_name' => $this->english_name,
+            'name' => $this->name,
             'image'=> $this->image,
             'created_at'=>$this->created_at->toFormattedDateString(),
 

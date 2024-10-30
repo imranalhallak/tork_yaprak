@@ -19,14 +19,15 @@ class UpdateProductRequest extends FormRequest
             'notebook_size'=> 'nullable|string',
             'cover_type'=> 'nullable|string',
             'paper_weight'=> 'nullable|string',
-            'number_of_pages'=> 'nullable|string',
+            'number_of_pages'=> 'nullable|numeric',
             'notebook_ruling'=> 'nullable|string',
+            'type_of_spiral'=> 'nullable|string',
             'code' => [
                 'required',
                 'string',
                 Rule::unique('products')->where(function ($query) {
-                    return $query->where('category_id', $this->category_id); // Use $this to access the request input
-                }). $this->route('id'),
+                    $query->where('category_id', $this->category_id); // Use $this to access the request input
+                })->ignore($this->route('id')), // Exclude the current product ID if it exists
             ],
         ];
     }

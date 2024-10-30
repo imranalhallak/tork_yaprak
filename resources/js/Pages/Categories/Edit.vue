@@ -9,10 +9,7 @@ import { watch, ref } from "vue"
 const category = usePage().props.category;
 console.log(category);
 const form = useForm({
-    arabic_name: category.arabic_name??null,
-    english_name: category.english_name??null,
-    turkish_name: category.turkish_name??null,
-    image: category.image??null,
+    name: category.name??null,
 });
 const handleImageUpload = (event) => {
       let file = event.target.files[0];
@@ -59,86 +56,25 @@ const updateCategory = () => {
                 </div>
 
                 <div class="grid grid-cols-6 gap-6">
-                    <!-- Arabic Name Input -->
                     <div class="col-span-6 sm:col-span-3">
                         <label
-                            for="arabic_name"
+                            for="name"
                             class="block text-sm font-medium text-gray-700"
-                            >Arabic Name</label
+                            >Name</label
                         >
                         <input
-                            v-model="form.arabic_name"
+                            v-model="form.name"
                             type="text"
                             id="arabic_name"
                             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             :class="{
                                 'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                                    form.errors.arabic_name,
+                                    form.errors.name,
                             }"
                         />
-                        <InputError :message="form.errors.arabic_name" class="mt-2" />
+                        <InputError :message="form.errors.name" class="mt-2" />
                     </div>
 
-                    <!-- English Name Input -->
-                    <div class="col-span-6 sm:col-span-3">
-                        <label
-                            for="english_name"
-                            class="block text-sm font-medium text-gray-700"
-                            >English Name</label
-                        >
-                        <input
-                            v-model="form.english_name"
-                            type="text"
-                            id="english_name"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            :class="{
-                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                                    form.errors.english_name,
-                            }"
-                        />
-                        <InputError :message="form.errors.english_name" class="mt-2" />
-                    </div>
-
-                    <!-- Turkish Name Input -->
-                    <div class="col-span-6 sm:col-span-3">
-                        <label
-                            for="turkish_name"
-                            class="block text-sm font-medium text-gray-700"
-                            >Turkish Name</label
-                        >
-                        <input
-                            v-model="form.turkish_name"
-                            type="text"
-                            id="turkish_name"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            :class="{
-                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                                    form.errors.turkish_name,
-                            }"
-                        />
-                        <InputError :message="form.errors.turkish_name" class="mt-2" />
-                    </div>
-
-                    <!-- Image Upload Input -->
-                    <div class="col-span-6 sm:col-span-3">
-                        <label
-                            for="image"
-                            class="block text-sm font-medium text-gray-700"
-                            >Image</label
-                        >
-                        <input
-                            type="file"
-                            id="image"
-
-                            @change="handleImageUpload"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            :class="{
-                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                                    form.errors.image,
-                            }"
-                        />
-                        <InputError :message="form.errors.image" class="mt-2" />
-                    </div>
                 </div>
             </div>
 

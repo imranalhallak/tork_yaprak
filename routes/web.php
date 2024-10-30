@@ -24,7 +24,7 @@ Route::get('/', action: [PublicController::class, 'show']);
 
 Route::get('/dashboard', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin',      [CategoryController::class, 'index'])->middleware(middleware: ['auth', 'verified'])->name('dashboard');
+// Route::get('/admin',      [CategoryController::class, 'index'])->middleware(middleware: ['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

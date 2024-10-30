@@ -18,15 +18,9 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id') // Foreign key referencing the menu table
                   ->constrained('categories') // Reference the 'menu' table
                   ->cascadeOnDelete(); // Cascade delete when the related menu is deleted
-            $table->string('arabic_name');
+
             $table->integer('position')->nullable();  // Adjust 'after' as per your column order
 
-            $table->string('turkish_name');
-            $table->string('english_name');
-            $table->text('arabic_description')->nullable();
-            $table->text('turkish_description')->nullable();
-            $table->text('english_description')->nullable();
-            $table->integer('price'); // Storing price as an integer
             $table->string('code')->unique(); // Unique product code
             $table->string('image')->nullable(); // Product image
             $table->unique(['category_id', 'code']);

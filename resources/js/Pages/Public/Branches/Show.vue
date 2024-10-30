@@ -46,8 +46,7 @@ onMounted(() => {
 
         <div class="text-center mb-10">
             <div class="logo text-6xl mb-2 mt-10">
-                <img alt="item.english_name" class="w-full h-auto rounded-lg m-auto" :src="`../../${branch.data.logo}`"
-                    style="width: 180px;  " />
+
             </div>
 
             <!-- Centered div with width 500px -->

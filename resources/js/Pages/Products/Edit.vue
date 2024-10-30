@@ -17,18 +17,13 @@ const categories = usePage().props.categories;
 
 // Initialize the form with product data if available
 const form = useForm({
-    arabic_name: product.arabic_name ?? null,
-  english_name: product.english_name ?? null,
-  turkish_name: product.turkish_name ?? null,
-  arabic_description: product.arabic_description ?? null,
-  turkish_description: product.turkish_description ?? null,
-  english_description: product.english_description ?? null,
   price: product.price ?? null,
   code: product.code ?? "",
   category_id: product.category_id ?? "",
   image: null, // This will be updated by handleImageUpload
   // New fields
   notebook_size: product.notebook_size ?? null,
+  type_of_spiral: product.type_of_spiral ?? null,
   cover_type: product.cover_type ?? null,
   paper_weight: product.paper_weight ?? null,
   number_of_pages: product.number_of_pages ?? null,
@@ -78,25 +73,14 @@ const updateProduct = () => {
                 >
                   <option disabled value="">Select a category</option>
                   <option v-for="category in categories" :key="category.id" :value="category.id">
-                    {{ category.arabic_name }}
+                    {{ category.name }}
                   </option>
                 </select>
                 <InputError :message="form.errors.category_id" class="mt-2" />
               </div>
 
 
-              <!-- Code -->
-              <div class="col-span-6 sm:col-span-3">
-                <label for="code" class="block text-sm font-medium text-gray-700">Code</label>
-                <input
-                  v-model="form.code"
-                  type="text"
-                  id="code"
-                  class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3"
-                  :class="{'border-red-300 text-red-900': form.errors.code}"
-                />
-                <InputError :message="form.errors.code" class="mt-2" />
-              </div>
+
               <div class="col-span-6 sm:col-span-3">
                 <label for="notebook_size" class="block text-sm font-medium text-gray-700">Notebook Size</label>
                 <input
@@ -108,7 +92,19 @@ const updateProduct = () => {
                 />
                 <InputError :message="form.errors.notebook_size" class="mt-2" />
               </div>
-
+              <div class="col-span-6 sm:col-span-3">
+                <label for="type_of_spiral" class="block text-sm font-medium text-gray-700">Type of Spiral</label>
+                <input
+                  v-model="form.type_of_spiral"
+                  type="text"
+                  id="type_of_spiral"
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  :class="{
+                    'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': form.errors.type_of_spiral,
+                  }"
+                />
+                <InputError :message="form.errors.type_of_spiral" class="mt-2" />
+              </div>
               <!-- Cover Type -->
               <div class="col-span-6 sm:col-span-3">
                 <label for="cover_type" class="block text-sm font-medium text-gray-700">Cover Type</label>
@@ -147,7 +143,18 @@ const updateProduct = () => {
                 />
                 <InputError :message="form.errors.number_of_pages" class="mt-2" />
               </div>
-
+     <!-- Code -->
+     <div class="col-span-6 sm:col-span-3">
+        <label for="code" class="block text-sm font-medium text-gray-700">Code</label>
+        <input
+          v-model="form.code"
+          type="text"
+          id="code"
+          class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3"
+          :class="{'border-red-300 text-red-900': form.errors.code}"
+        />
+        <InputError :message="form.errors.code" class="mt-2" />
+      </div>
               <!-- Notebook Ruling -->
               <div class="col-span-6 sm:col-span-3">
                 <label for="notebook_ruling" class="block text-sm font-medium text-gray-700">Notebook Ruling</label>

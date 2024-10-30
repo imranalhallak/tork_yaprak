@@ -22,10 +22,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'arabic_name' => 'required|string|max:255',
-            // 'branch_id' => 'required|string|max:255',
-            'turkish_name' => 'required|string|max:255',
-            'english_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+
 
         ];
     }

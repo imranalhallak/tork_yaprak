@@ -20,6 +20,7 @@ class ProductResource extends JsonResource
             'category' => new CategoryResource(resource: $this->category), // Include category resource
             'category_id' =>  $this->category_id,
             'number_of_pages'=>$this->number_of_pages,
+            'type_of_spiral'=>$this->type_of_spiral,
             'price' => $this->price,
             'code' => $this->code,
             'image' => $this->image,

@@ -21,8 +21,10 @@ public function rules()
         'notebook_size'=> 'nullable|string',
         'cover_type'=> 'nullable|string',
         'paper_weight'=> 'nullable|string',
-        'number_of_pages'=> 'nullable|string',
+        'number_of_pages'=> 'nullable|numeric',
         'notebook_ruling'=> 'nullable|string',
+        'type_of_spiral'=> 'nullable|string',
+
         'code' => [
             'required',
             'string',

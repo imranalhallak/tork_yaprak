@@ -152,9 +152,7 @@ const getImagePath = (image) => {
                     <thead>
                       <tr>
                         <th class="px-4 py-2">ID</th>
-                        <th class="px-4 py-2">Arabic Name</th>
-                        <th class="px-4 py-2">Turkish Name</th>
-                        <th class="px-4 py-2">English Name</th>
+                        <th class="px-4 py-2">Name</th>
                       </tr>
                     </thead>
 
@@ -175,9 +173,7 @@ const getImagePath = (image) => {
                       >
                         <template #item>
                           <td class="border px-4 py-2">{{ "category.id" }}</td>
-                          <td class="border px-4 py-2">{{ "category.arabic_name" }}</td>
-                          <td class="border px-4 py-2">{{ "category.turkish_name" }}</td>
-                          <td class="border px-4 py-2">{{ "category.english_name" }}</td>
+                          <td class="border px-4 py-2">{{ "category.name" }}</td>
                         </template>
                         <!-- <td class="border px-4 py-2">
                             <img
@@ -207,26 +203,10 @@ const getImagePath = (image) => {
                           scope="col"
                           class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                         >
-                          Arabic Name
+                          Name
                         </th>
-                        <th
-                          scope="col"
-                          class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                        >
-                          English Name
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                        >
-                          Turkish Name
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                        >
-                          Image
-                        </th>
+
+
                         <th
                           scope="col"
                           class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
@@ -246,21 +226,10 @@ const getImagePath = (image) => {
                         <td
                           class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                         >
-                          <p>{{ category.arabic_name }}</p>
+                          <p>{{ category.name }}</p>
                         </td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {{ category.english_name }}
-                        </td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {{ category.turkish_name }}
-                        </td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <img
-                            :src="`../${category.image}`"
-                            width="100px"
-                            height="100px"
-                          />
-                        </td>
+
+
                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {{ category.created_at }}
                         </td>
