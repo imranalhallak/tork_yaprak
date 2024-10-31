@@ -16,6 +16,20 @@ const props = usePage().props;
 
     document.documentElement.setAttribute('dir', globalLanguage.selectedLanguage === 'ar' ? 'rtl' : 'ltr');
 });
+const parseImages = (imagesString) => {
+  try {
+    return JSON.parse(imagesString);
+  } catch (error) {
+    console.error("Error parsing images: ", error);
+    return []; // Return an empty array if parsing fails
+  }
+};
+
+// Function to get the first image
+const firstImage = (imagesString) => {
+  const images = parseImages(imagesString);
+  return images.length > 0 ? images[0] : null; // Return the first image or null if none exist
+};
 // Define the menu items array as a reactive reference
 const menuItems = ref(props.category.data.categories || []); // Ensure it's a reactive reference
 // Define a reactive array to track which items have animated in
@@ -43,7 +57,7 @@ onMounted(() => {
 </script>
 
 <template>
-
+<div>{{parseImages[0]}}</div>
     <div class="full-screen-container">
       <title></title>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
@@ -59,18 +73,19 @@ onMounted(() => {
 
         <!-- Scrollable grid container -->
         <div class="grid-container grid grid-cols-2 gap-2 overflow-y-auto">
-          <Link
+            <Link
             v-for="(item, index) in menuItems"
             :key="index"
             :href="route('category.product', { category: props.category.data.id, product: item.id })"
             class="bg-white p-4 rounded-lg shadow"
             :class="['menu-item1', { 'enter': enteredItems.includes(index) }]"
-            :style="{ transitionDuration: (index > 10 ? (0.3 + index * 0.2) : 0.3 ) + 's' }"
+            :style="{ transitionDuration: (index > 10 ? (0.3 + index * 0.2) : 0.3) + 's' }"
           >
             <img
-              :alt="item.english_name"
-              class="w-full h-auto rounded-lg"
-              :src="`${item.image}`"
+              v-if="firstImage(item.images)"
+              :src="firstImage(item.images)"
+              :alt="firstImage(item.images)"
+              class="w-full h-auto rounded"
             />
             <p class="mt-2 text-center text-gray-600">
               {{ item.code }}

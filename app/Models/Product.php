@@ -17,7 +17,7 @@ class Product extends Model
         'category_id', // Foreign key to the menu
         'price',
         'code',
-        'image',
+        'images',
         'code',
         'type_of_spiral',
         'notebook_size',

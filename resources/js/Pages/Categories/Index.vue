@@ -146,46 +146,6 @@ const getImagePath = (image) => {
           <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                <div class="block">
-                  <h1>Draggable Categories Table</h1>
-                  <table class="table-auto w-full">
-                    <thead>
-                      <tr>
-                        <th class="px-4 py-2">ID</th>
-                        <th class="px-4 py-2">Name</th>
-                      </tr>
-                    </thead>
-
-                    <!-- Draggable tbody with itemKey -->
-
-                    <!-- Slot for each item -->
-
-                    <tr
-                      v-for="category in categories.data"
-                      :key="category.id"
-                      class="cursor-move handle"
-                    >
-                      <draggable
-                        :list="categories.data"
-                        class="list-group"
-                        ghost-class="ghost"
-                        v-model="categoriesList"
-                      >
-                        <template #item>
-                          <td class="border px-4 py-2">{{ "category.id" }}</td>
-                          <td class="border px-4 py-2">{{ "category.name" }}</td>
-                        </template>
-                        <!-- <td class="border px-4 py-2">
-                            <img
-                              :src="getImageUrl(category.image)"
-                              alt="Image"
-                              class="w-16 h-16"
-                            />
-                          </td> -->
-                      </draggable>
-                    </tr>
-                  </table>
-                </div>
 
                 <div
                   class="overflow- shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative "

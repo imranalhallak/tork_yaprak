@@ -19,4 +19,8 @@ class PublicController extends Controller
             '$categories' => new PublicCategoryResource($categories)
         ]);
     }
+    public function about()
+    {
+        return Inertia::render('About'); // Assuming the Vue component is named About.vue
+    }
 }

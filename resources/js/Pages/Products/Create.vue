@@ -18,7 +18,7 @@ const form = useForm({
   price: '12',
   code: "",
   category_id: "",
-  image: null,
+  images: [], // Changed to an array to handle multiple files
   notebook_size: "",
   type_of_spiral:"",
   cover_type: "",
@@ -28,8 +28,7 @@ const form = useForm({
 });
 
 const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  form.image = file; // This binds the file to the form's image field
+  form.images = Array.from(event.target.files); // Store all selected files
 };
 
 // watch(
@@ -199,11 +198,11 @@ const createProduct = () => {
                     <InputError :message="form.errors.code" class="mt-2" />
                   </div>
 
-                    <div>
-                        <label for="image">Image</label>
-                        <input type="file" multiple @change="handleFileChange" />
-                        <span v-if="form.errors.image">{{ form.errors.image }}</span>
-                    </div>
+                  <div>
+                    <label for="images">Images</label>
+                    <input type="file" multiple @change="handleFileChange" />
+                    <InputError :message="form.errors.images" class="mt-2" />
+                  </div>
                     </div>
               </div>
               <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

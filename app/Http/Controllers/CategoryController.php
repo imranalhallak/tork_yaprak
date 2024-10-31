@@ -10,112 +10,95 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
-
 {
-      // Display a listing of the categories (Inertia response).
-      public function index(Request $request)
-      {
-          $categoriesQuery = Category::search($request);
-
-          $allCategories =CategoryResource::collection( $categoriesQuery->paginate(10));
-          return Inertia::render('Categories/Index', [ // Render the Inertia Vue component
-              'categories' => $allCategories
-          ]);
-      }
-
-    public function test(Request $request)
+    /**
+     * Display a listing of the categories.
+     */
+    public function index(Request $request)
     {
         $categoriesQuery = Category::search($request);
+        $allCategories = CategoryResource::collection($categoriesQuery->paginate(10));
 
-        $allCategories =CategoryResource::collection( $categoriesQuery->get())->paginate(10);
-        return Inertia::render('Test/Test', [ // Render the Inertia Vue component
-            'categories' => $allCategories
-
+        return Inertia::render('Categories/Index', [
+            'categories' => $allCategories,
         ]);
     }
 
-    // Display the create form for a category.
+    /**
+     * Show the form for creating a new category.
+     */
     public function create()
     {
-
-        return Inertia::render('Categories/Create',[
-        ]);
+        return Inertia::render('Categories/Create');
     }
 
-    // Store a newly created category in storage.
+    /**
+     * Store a newly created category in storage.
+     */
     public function store(StoreCategoryRequest $request)
     {
-        // if ($request->hasFile('image')) {
-        //     // Store the image in 'public/images' and get the relative path
-        //     $validated['image'] = $request->file('image')->store('category_images', 'public');
-        // }
         $data = $request->validated();
 
+        // Handle SVG file upload
+        if ($request->hasFile('svg')) {
+            $data['svg'] = $request->file('svg')->store('svgs', 'public');
+            $request['svg']->move('svgs', $data['svg']);
+        }
 
-        // $request->file('image')->move('category_images', $validated['image']);
+        // Create the category
+        Category::create($data);
 
-        $category = Category::create($data); // Create a new category
-        // $category->image = $validated['image'];
-        $category->save();
-
-
-        // return $category;
-        return redirect()->route('categories.index'); // Redirect to the index page after creation
+        return redirect()->route('categories.index')->with('success', 'Category created successfully!');
     }
 
-    // Display the specified category.
-    public function show($id)
+    /**
+     * Display the specified category.
+     */
+    public function show(Category $category)
     {
-        $category = Category::findOrFail($id); // Find the category by ID
         return Inertia::render('Categories/Show', [
-            'category' => $category
+            'category' => $category,
         ]);
     }
 
-    // Display the edit form for a category.
+    /**
+     * Show the form for editing the specified category.
+     */
     public function edit($id)
     {
-
-        $category = Category::where('id', $id)->first(); // Will return the first match
-        // return $category;
+        $category = Category::findOrFail($id);
         return Inertia::render('Categories/Edit', [
             'category' => $category,
-
         ]);
     }
 
-    // Update the specified category in storage.
-    public function update(UpdateCategoryRequest $request, $id)
+    /**
+     * Update the specified category in storage.
+     */
+    public function update(UpdateCategoryRequest $request,  $id)
     {
-        $category = Category::findOrFail($id);
-        // Validate the incoming request
-
-        // if ($request->hasFile('image')) {
-        //     $request->validate([
-        //         'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048', ]
-
-        //     );
-        //     // Store the image in 'public/images' and get the relative path
-        //     $validated['image'] = $request->file('image')->store('category_images', 'public');
-        // }
-
-
-        $category->update($request->validated());
-        // if ($request->hasFile('image')) {
-        // $request->file('image')->move('category_images', $validated['image']);
-        // $category->image = $validated['image'];
-        // $category->save();
-        // }
-
-        // Redirect back to a view or send a success message
+     $category=   Category::findOrFail($id);
+        $data = $request->validated();
+        // Handle SVG file upload if provided
+        if ($request->hasFile('svg')) {
+            $data['svg'] = $request->file('svg')->store('svgs', 'public');
+            $svgFile =$data['svg'] ;
+            $myFile =    $request['svg']->move('svgs', $svgFile);
+        }
+        $category->update($data);
+        $category->svg =$myFile ;
+        $category->save();
         return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
     }
 
-    // Remove the specified category from storage.
+    /**
+     * Remove the specified category from storage.
+     */
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        $category->delete(); // Delete the category
-        return redirect()->route('categories.index'); // Redirect to the index page after deletion
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\PublicProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+Route::get('/about', [PublicController::class, 'create'])->name('about');
 Route::get('/', action: [PublicController::class, 'show']);
 
 // Route::get('/', function () {
@@ -58,7 +59,9 @@ Route::get('create', [CategoryController::class, 'create'])->name('categories.cr
 
 });
 require __DIR__.'/auth.php';
+
 Route::get('/{category}/{product}', [PublicProductController::class, 'show'])->name('category.product');
+Route::get('/about', [PublicController::class, 'about'])->name('about');
 
 Route::get('/{category}', [PublicCategoryController::class, 'show'])->name('category');
 

@@ -2,31 +2,16 @@
 import InputError from "@/Components/InputError.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
-// import axios from "axios";
-import { watch, ref } from "vue";
-
-let sections = ref({});
+import { ref } from "vue";
 
 const form = useForm({
   name: "",
+  svg: null,
 });
-const handleImageUpload = (event) => {
-  const file = event.target.files[0];
-  form.image = file; // This binds the file to the form's image field
+
+const handleFileUpload = (event) => {
+  form.svg = event.target.files[0];
 };
-
-// watch(
-//     () => form.class_id,
-//     (newValue) => {
-//         getSections(newValue);
-//     }
-// );
-
-// const getSections = (classId) => {
-//     axios.get("/api/sections?class_id=" + classId).then((response) => {
-//         sections.value = response.data;
-//     });
-// };
 
 const createCategory = () => {
   form.post(route("categories.store"));
@@ -47,21 +32,13 @@ const createCategory = () => {
             <div class="shadow sm:rounded-md sm:overflow-hidden">
               <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div>
-                  <h3 class="text-lg leading-6 font-medium text-gray-900">
-                    Category Information
-                  </h3>
-                  <p class="mt-1 text-sm text-gray-500">
-                    Use this form to create a new category.
-                  </p>
+                  <h3 class="text-lg leading-6 font-medium text-gray-900">Category Information</h3>
+                  <p class="mt-1 text-sm text-gray-500">Use this form to create a new category.</p>
                 </div>
 
                 <div class="grid grid-cols-6 gap-6">
                   <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="name"
-                      class="block text-sm font-medium text-gray-700"
-                      >Name</label
-                    >
+                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                     <input
                       v-model="form.name"
                       type="text"
@@ -74,10 +51,10 @@ const createCategory = () => {
                     />
                     <InputError :message="form.errors.name" class="mt-2" />
                   </div>
-
-
-
-
+                  <div class="col-span-6 sm:col-span-3">
+                    <label for="svg" class="block text-sm font-medium text-gray-700">Upload SVG</label>
+                    <input type="file" @change="handleFileUpload" accept=".svg" class="mt-1 block w-full" />
+                  </div>
                 </div>
               </div>
               <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

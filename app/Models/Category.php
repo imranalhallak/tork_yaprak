@@ -13,9 +13,7 @@ class Category extends Model
     protected $fillable = [
         'name',
 
-        'image',
-        'price',
-        'code',
+        'svg'
     ];
 
     // Define the relationship with Product

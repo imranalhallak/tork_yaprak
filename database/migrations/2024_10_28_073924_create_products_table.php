@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('position')->nullable();  // Adjust 'after' as per your column order
 
             $table->string('code')->unique(); // Unique product code
-            $table->string('image')->nullable(); // Product image
+            $table->string('images')->nullable(); // Product image
             $table->unique(['category_id', 'code']);
 
             $table->timestamps(); // Adds created_at and updated_at
