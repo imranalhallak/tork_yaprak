@@ -21,10 +21,15 @@ const globalLanguage = appContext.config.globalProperties.$globalLanguage;
 const setDirection = (lang) => {
     document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 };
+const showImage = ref(false);
 
 // Load saved language and set direction on mount
 onMounted(() => {
     setDirection(globalLanguage.selectedLanguage);
+    // Set a timeout to display the image after 2 seconds
+    setTimeout(() => {
+        showImage.value = true;
+    }, 2000);
 });
 
 // Watch for language changes to update page direction
@@ -86,7 +91,7 @@ onMounted(() => {
                     >
                         <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px;">
                             <!-- SVG Icon with Color -->
-                            <img :src="item.svg" class="svg-icon" color="#A0522D"  />
+                            <img  :src="item.svg" class="svg-icon" />
 
                             <!-- Centered Item Name -->
                             <span style="flex: 1; text-align: center;">{{ $t(item.name) }}</span>
