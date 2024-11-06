@@ -56,12 +56,22 @@ watch(
         }
     }
 );
-
+const parseImages = (imagesString) => {
+  try {
+    return JSON.parse(imagesString);
+  } catch (error) {
+    return []; // Return an empty array if parsing fails
+  }
+};
+const firstImage = (imagesString) => {
+  const images = parseImages(imagesString);
+  return images.length > 0 ? `../${images[0]}` : null; // Return the first image's path or null if none exist
+};
 const deletForm = useForm({});
 
 const deleteProduct = (productId) => {
   if (confirm("Are you sure you want to delete this product?")) {
-    deletForm.delete(route("products.destroy", productId), {
+    deletForm.post(route("products.destroy", productId), {
       preserveScroll: true, // Ensure it's passed here
     });
   }
@@ -201,7 +211,12 @@ const deleteProduct = (productId) => {
                           {{ product.price }}
                         </td>
                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <img :src="`../${product.image}`" width="100" />
+                            <img
+                            v-if="firstImage(product.images)"
+                            :src="firstImage(product.images)"
+                            :alt="firstImage(product.images)"
+                            class="w-full h-10 rounded "
+                          />
                         </td>
                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {{ product.created_at }}

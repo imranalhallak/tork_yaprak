@@ -38,13 +38,10 @@ class Product extends Model
         return $query->where(function ($query) use ($request) {
             return $query->when($request->search, function ($query) use ($request) {
                 return $query->where(function ($query) use ($request) {
-                    $query->where('arabic_name', 'like', '%' . $request->search . '%')
-                        ->orWhere('english_name', 'like', '%' . $request->search . '%')
-                        ->orWhere('turkish_name', 'like', '%' . $request->search . '%')
-                        ->orWhere('turkish_description', 'like', '%' . $request->search . '%')
-                        ->orWhere('english_description', 'like', '%' . $request->search . '%')
-                        ->orWhere('arabic_description', 'like', '%' . $request->search . '%')
+                    $query->where('cover_type', 'like', '%' . $request->search . '%')
                         ->orWhere('code', 'like', '%' . $request->search . '%')
+                        ->orWhere('category_id', 'like', '%' . $request->search . '%')
+                        ->orWhere('type_of_spiral', 'like', '%' . $request->search . '%')
                         ;
                 });
             });

@@ -58,13 +58,13 @@ onMounted(() => {
 
 <template>
 <div>{{parseImages[0]}}</div>
-    <div class="full-screen-container">
+    <div class="full-screen-container1">
       <title></title>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
 
-      <div class="content-container max-w-lg mx-auto rounded-lg shadow-lg p-4">
-        <div class="header flex justify-between items-center mb-4">
+      <div class="content-container1 max-w-lg mx-auto rounded-lg shadow-lg p-4">
+        <div class="header1 flex justify-between items-center mb-4">
           <Logo class="w-52" />
           <h1 class="text-xl font-bold text-gray-700">
             {{ props.category.data.arabic_name }}
@@ -72,7 +72,7 @@ onMounted(() => {
         </div>
 
         <!-- Scrollable grid container -->
-        <div class="grid-container grid grid-cols-2 gap-2 overflow-y-auto">
+        <div class="grid-container1 grid grid-cols-2 gap-2 overflow-y-auto">
             <Link
             v-for="(item, index) in menuItems"
             :key="index"
@@ -98,36 +98,37 @@ onMounted(() => {
   </template>
 
   <style>
-body {
+body1 {
+    overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
   background-color: #f8f8f8;
   margin: 0; /* Remove default margin for full-height effect */
 }
 
-.full-screen-container {
+.full-screen-container1 {
   display: flex;
   flex-direction: column;
   height: 100vh; /* Full height of the viewport */
 }
 
-.content-container {
+.content-container1 {
   display: flex;
   flex-direction: column;
   height: 100%; /* Take up the full height of the container */
 }
 
-.header {
-  flex-shrink: 0; /* Ensure the header stays at the top */
+.header1 {
+  flex-shrink: 0; /* Ensure the header1 stays at the top */
 }
 
-.grid-container {
+.grid-container1 {
   /*flex-grow: 1;  Take up remaining space in the container */
 
 
   /* Hide scrollbar */
   scrollbar-width: none; /* Firefox */
 }
-.grid-container::-webkit-scrollbar {
+.grid-container1::-webkit-scrollbar {
   display: none; /* Chrome, Safari, and Edge */
 }
 

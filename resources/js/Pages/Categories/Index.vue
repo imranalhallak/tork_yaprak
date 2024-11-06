@@ -73,7 +73,7 @@ const deletForm = useForm({});
 
 const deleteCategory = (studentId) => {
   if (confirm("Are you sure you want to delete this student?")) {
-    deletForm.delete(route("categories.destroy", studentId));
+    deletForm.post(route("categories.destroy", studentId));
   }
 };
 const cleanImageUrl = (image) => {

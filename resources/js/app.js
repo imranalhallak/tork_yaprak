@@ -8,6 +8,9 @@ import tr from './lang/tr.json';
 import ar from './lang/ar.json';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import Toast from "vue-toastification";
+import { notifications } from "./Plugins/notifications";
+import 'vue-toastification/dist/index.css';
 
 const appName = 'Thunder Catalog';
 
@@ -24,7 +27,20 @@ const i18n = createI18n({
         tr,
     },
 });
-
+const options = {
+    position: "top-right",
+    timeout: 5000,
+    closeOnClick: true,
+    pauseOnFocusLoss: true,
+    pauseOnHover: true,
+    draggable: true,
+    draggablePercent: 0.6,
+    showCloseButtonOnHover: true,
+    hideProgressBar: true,
+    closeButton: "button",
+    icon: true,
+    rtl: false,
+};
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
@@ -37,6 +53,8 @@ createInertiaApp({
         const app = createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(i18n)
+            .use(Toast, options)
+            .use(notifications)
             .use(ZiggyVue);
 
         // Define a reactive global language variable

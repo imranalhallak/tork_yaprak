@@ -23,6 +23,15 @@ class CategoryController extends Controller
             'categories' => $allCategories,
         ]);
     }
+    public function test(Request $request)
+    {
+        $categoriesQuery = Category::search($request);
+        $allCategories = CategoryResource::collection($categoriesQuery->paginate(10));
+
+        return Inertia::render('Test/Test', [
+            'categories' => $allCategories,
+        ]);
+    }
 
     /**
      * Show the form for creating a new category.

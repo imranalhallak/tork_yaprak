@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted , getCurrentInstance} from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import BackButton from "@/Components/BackButton.vue";
 import { useI18n } from 'vue-i18n';
@@ -15,7 +15,6 @@ const { appContext } = getCurrentInstance();
 const globalLanguage = appContext.config.globalProperties.$globalLanguage;
 const { t } = useI18n();
 const props = usePage().props;
-
 // Reactive variable to track the selected language
 const language = ref('en'); // Default language
 
@@ -45,7 +44,7 @@ const parseImages = (imagesString) => {
 };
 
 // Get images array
-const images = parseImages(product.value.images);
+const parsedImages = ref(parseImages(product.value.images));
 </script>
 
 <template>
@@ -58,19 +57,16 @@ const images = parseImages(product.value.images);
 
         <!-- Swiper Container -->
         <Swiper
-
-        :slides-per-view="1.1"
-
-        navigatio
-        :pagination="{ clickable: true }"
-        :space-between="10"
-        class="mySwiper"
-        style="max-width: 100%;"
-    >
-        <SwiperSlide v-for="(image, index) in images" :key="index">
-            <img :src="`../${image}`" alt="Product Image" class="w-full h-auto object-cover" />
-        </SwiperSlide>
-    </Swiper>
+            :slides-per-view="parsedImages.length === 1 ? 1 : 1.1"
+            :pagination="{ clickable: true }"
+            :space-between="parsedImages.length === 1 ? 0 : 10"
+            class="mySwiper"
+            style="max-width: 100%;"
+        >
+            <SwiperSlide v-for="(image, index) in parsedImages" :key="index">
+                <img :src="`../${image}`" alt="Product Image" class="w-full h-auto object-cover" />
+            </SwiperSlide>
+        </Swiper>
 
         <div class="p-4">
             <div class="bg-brown-700 text-white p-2 rounded-lg flex justify-between items-center" style="background-color: brown;">

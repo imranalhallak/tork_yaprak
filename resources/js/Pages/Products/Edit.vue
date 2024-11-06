@@ -1,54 +1,92 @@
 <script setup>
 import InputError from "@/Components/InputError.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, useForm , usePage} from "@inertiajs/vue3";
-import { ref, watch } from "vue";
-
+import { Head, useForm, usePage } from "@inertiajs/vue3";
+import { ref, computed, onMounted } from "vue";
+import { VueDraggable } from 'vue-draggable-plus';
 
 const product = usePage().props.product;
 const categories = usePage().props.categories;
 
+// Parse the images string into an array
+const productImages = computed(() => {
+  try {
+    return JSON.parse(product.images || '[]');
+  } catch (e) {
+    return [];
+  }
+});
+
+const productImages1 = ref([]); // Initialize productImages1 as an empty ref
+
+// Populate productImages1 on mount
+onMounted(() => {
+  productImages1.value = [...productImages.value]; // Assign computed value to ref as an array copy
+});
+
 // Populate form with existing product data
 const form = useForm({
-    price: product.price || '12',
-    code: product.code || "",
-    category_id: product.category_id || "",
-    images: [], // New images for upload
-    notebook_size: product.notebook_size || "",
-    type_of_spiral: product.type_of_spiral || "",
-    cover_type: product.cover_type || "",
-    paper_weight: product.paper_weight || "",
-    number_of_pages: product.number_of_pages || "",
-    notebook_ruling: product.notebook_ruling || ""
+  price: product.price || '12',
+  code: product.code || "",
+  category_id: product.category_id || "",
+  images: [], // New images for upload
+  deletedImages: [], // Images marked for deletion
+  notebook_size: product.notebook_size || "",
+  type_of_spiral: product.type_of_spiral || "",
+  cover_type: product.cover_type || "",
+  paper_weight: product.paper_weight || "",
+  number_of_pages: product.number_of_pages || "",
+  notebook_ruling: product.notebook_ruling || ""
 });
 
 // Handle file input changes
 const handleFileChange = (event) => {
-    form.images = Array.from(event.target.files); // Store all selected files
+  form.images = Array.from(event.target.files); // Store all selected files
 };
 
 // Update product
 const updateProduct = () => {
-    form.post(route("products.update", { id: product.id }));
+  form.post(route("products.update", { id: product.id }));
 };
 
 // Dynamic input class based on error presence
 const inputClass = (error) => {
-    return {
-        'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': error,
-        'border-gray-300': !error
-    };
+  return {
+    'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': error,
+    'border-gray-300': !error
+  };
 };
 
+const deletedImages = ref([]); // Track images marked for deletion
+
+const deleteImage = (index) => {
+  const image = productImages1.value[index];
+  if (image) {
+    // Add the image to the deletion list for backend processing
+    deletedImages.value.push(image);
+
+    // Remove the image from the displayed array
+    productImages1.value.splice(index, 1);
+
+    // Update form.images with the current list of product images after deletion
+    form.images = [...productImages1.value];
+    form.post(route("products.delete-image", { id: product.id }));
+
+  }
+};
+
+// Handle reorder event
+const handleReorder = () => {
+  form.images = [...productImages1.value]; // Update form images with the reordered list
+  form.post(route("products.order-image", { id: product.id }));
+
+};
 </script>
 
 <template>
   <Head title="Edit Product" />
 
   <AuthenticatedLayout>
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Product</h2>
-    </template>
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-12">
@@ -98,8 +136,31 @@ const inputClass = (error) => {
                   </div>
 
                   <div class="col-span-6 sm:col-span-3">
-                    <label for="images" class="block text-sm font-medium text-gray-700">Images</label>
-                    <input type="file" multiple @change="handleFileChange" />
+                    <h1>Product Images</h1>
+                    <div v-if="productImages1.length" class="flex flex-wrap gap-4 mb-4">
+                        <VueDraggable v-model="productImages1" @end="handleReorder" class="flex gap-2 overflow-x-auto">
+                            <div
+                              v-for="(image, index) in productImages1"
+                              :key="index"
+                              class=" relative w-16 h-24 border rounded overflow-hidden flex-shrink-0"
+                            >
+                              <img class="" :src="`/${image}`" alt="Product Image" />
+                              <button
+                                @click="deleteImage(index)"
+                                class="w absolute top-1 right-1 bg-red-600 hover:bg-red-700 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                                aria-label="Delete image"
+                              >
+                                &times;
+                              </button>
+                            </div>
+                          </VueDraggable>
+
+                    </div>
+                    <div v-else>
+                      <p>No images available</p>
+                    </div>
+                    <label for="images" class="block text-sm font-medium text-gray-700 mt-4">Images</label>
+                    <input type="file" id="images" multiple @change="handleFileChange" class="mt-2" />
                     <InputError :message="form.errors.images" class="mt-2" />
                   </div>
                 </div>
@@ -119,3 +180,28 @@ const inputClass = (error) => {
     </div>
   </AuthenticatedLayout>
 </template>
+
+<style scoped>
+button {
+  cursor: pointer;
+  font-size: 1rem;
+}
+.image-container {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+img {
+  width: 100px; /* Adjust as needed */
+  height: auto;
+}
+</style>

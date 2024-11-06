@@ -7,27 +7,29 @@ use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
-        return true; // Adjust this if you want to implement authorization logic
+        return true; // Implement authorization logic as needed
     }
 
-    public function rules()
+    public function rules(): array
     {
+        $productId = $this->route('id');
+
         return [
-            'category_id' => 'required|exists:categories,id', // Ensure the menu exists
-            'notebook_size'=> 'nullable|string',
-            'cover_type'=> 'nullable|string',
-            'paper_weight'=> 'nullable|string',
-            'number_of_pages'=> 'nullable|numeric',
-            'notebook_ruling'=> 'nullable|string',
-            'type_of_spiral'=> 'nullable|string',
+            'category_id' => ['required', 'exists:categories,id'],
+            'notebook_size' => ['nullable', 'string'],
+            'cover_type' => ['nullable', 'string'],
+            'paper_weight' => ['nullable', 'string'],
+            'number_of_pages' => ['nullable', 'numeric'],
+            'notebook_ruling' => ['nullable', 'string'],
+            'type_of_spiral' => ['nullable', 'string'],
             'code' => [
                 'required',
                 'string',
-                Rule::unique('products')->where(function ($query) {
-                    $query->where('category_id', $this->category_id); // Use $this to access the request input
-                })->ignore($this->route('id')), // Exclude the current product ID if it exists
+                Rule::unique('products')
+                    ->where('category_id', $this->category_id)
+                    ->ignore($productId),
             ],
         ];
     }

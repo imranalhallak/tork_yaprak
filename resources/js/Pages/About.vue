@@ -46,155 +46,87 @@ const goToCategory = (id) => {
 </script>
 
 <template>
-    <BackButton/>
-
-    <title>About Us</title>
+    <BackButton />
+    <title>{{ t('about_us') }}</title>
     <div>
-        <ToggleLight style=" position: fixed; direction: rtl; text-align: right;" />        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <ToggleLight style="position: fixed; direction: rtl; text-align: right;" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
         <div class="m-auto">
             <Logo class="w-52 m-auto" />
         </div>
 
-
-
         <div class="text-center mb-10">
-
-
-
-
             <div v-if="locale === 'ar'" class="container">
                 <h1>تورك يابراك</h1>
-                <p>تورك يابراك هي شركة متخصصة في إنتاج المنتجات الورقية والدفاتر بمختلف أنواعها، وتعتبر الشركة من
-                    الشركات الرائدة في هذا المجال، وذلك بفضل التزامها بتقديم منتجات عالية الجودة تلبي احتياجات السوق
-                    المحلية والدولية.</p>
-
-                <h2>منتجات:</h2>
-                <p>تتخصص شركة <span class="highlight">TORK YAPRAK</span> في إنتاج مجموعة واسعة من المنتجات الورقية، بما
-                    في ذلك:</p>
+                <p>تورك يابراك هي شركة متخصصة في إنتاج المنتجات الورقية والدفاتر بمختلف أنواعها. تعتبر الشركة من الشركات الرائدة في هذا المجال بفضل التزامها بالجودة العالية وتلبية احتياجات الأسواق المحلية والدولية.</p>
+                <h2>منتجاتنا:</h2>
+                <p>تورك يابراك تنتج مجموعة متنوعة من المنتجات الورقية:</p>
                 <ul>
-                    <li>دفاتر مدرسية بأحجام وتصاميم مختلفة.</li>
-                    <li>دفاتر احترافية تلبي احتياجات الشركات والأفراد.</li>
-                    <li>أوراق طباعة وكتابة عالية الجودة مناسبة لجميع أنواع الطابعات.</li>
-                    <li>منتجات ورقية أخرى مثل المخططات وأوراق الرسم وغيرها.</li>
+                    <li>دفاتر مدرسية بأحجام وتصاميم متعددة.</li>
+                    <li>دفاتر احترافية لتلبية احتياجات الأفراد والشركات.</li>
+                    <li>ورق طباعة عالي الجودة يناسب جميع أنواع الطابعات.</li>
+                    <li>منتجات ورقية أخرى مثل المخططات وأوراق الرسم.</li>
                 </ul>
-
                 <h2>الجودة والابتكار:</h2>
-                <p>تؤكد الشركة على استخدام أفضل المواد الخام وأحدث التقنيات في عمليات التصنيع لضمان منتجات متينة تتميز
-                    بجودتها وطول عمرها. كما تلتزم شركة تورك يابراك بالابتكار المستمر في تصميماتها لتلبية الاحتياجات
-                    المتنوعة لعملائها.</p>
-
+                <p>الشركة تضمن الجودة من خلال استخدام أفضل المواد الخام وأحدث التقنيات. كما تسعى باستمرار للابتكار في تصاميمها.</p>
                 <h2>الاستدامة:</h2>
-                <p>تشكل الاستدامة جوهر عمليات شركة <span class="highlight">TORK YAPRAK</span>، مع الالتزام بالممارسات
-                    المسؤولة بيئيًا في كل مرحلة من مراحل الإنتاج، من اختيار المواد الخام إلى إدارة النفايات.</p>
-
-                <h2>السوق والموقع:</h2>
-                <p>تتمتع الشركة بحضور قوي في الأسواق المحلية والدولية، مع مستوى عالٍ من القدرة التنافسية مما يجعلها
-                    الخيار المفضل للمدارس والشركات والمستهلكين الأفراد على حد سواء.</p>
-
-                <p>باختصار، تعتبر شركة <span class="highlight">TORK YAPRAK</span> شريكًا موثوقًا به لأولئك الذين يبحثون
-                    عن حلول ورقية مبتكرة وعالية الجودة، مدعومة بخبرة واسعة وفهم عميق لاحتياجات السوق.</p>
-
-                <h2>لدينا 25 عامًا من الخبرة في هذا المجال</h2>
-                <p>بدأت قصتنا في فلسطين حيث بدأنا رحلتنا في مجال صناعة الورق قبل 25 عاماً، وفي إطار سعينا لتوسيع أعمالنا
-                    عالمياً، أسسنا شركتنا في تركيا حيث استمرت رحلتنا نحو التطور والازدهار.</p>
-
-                <div class="footer">
-                    © 2024 TORK YAPRAK - جميع الحقوق محفوظة
-                </div>
+                <p>تلتزم تورك يابراك بالاستدامة من خلال اختيار المواد الصديقة للبيئة وإدارة النفايات بطرق مسؤولة.</p>
+                <h2>الوجود في السوق:</h2>
+                <p>الشركة لديها وجود قوي في الأسواق المحلية والدولية، مما يجعلها الخيار المفضل للمدارس والشركات والمستهلكين.</p>
+                <h2>25 عامًا من الخبرة:</h2>
+                <p>بدأت الرحلة في فلسطين قبل 25 عامًا، واستمر النمو والتميز حتى إنشاء الشركة في تركيا حيث توسعت بشكل عالمي.</p>
+                <div class="footer">© 2024 TORK YAPRAK - جميع الحقوق محفوظة</div>
             </div>
 
             <div v-if="locale === 'tr'" class="container">
                 <h1>TORK YAPRAK</h1>
-                <p>TORK YAPRAK, çeşitli tiplerde kağıt ürünleri ve defterlerin üretiminde uzmanlaşmış bir şirkettir.
-                    Şirket, hem yerel hem de uluslararası pazarların ihtiyaçlarını karşılayan yüksek kaliteli ürünler
-                    sunma taahhüdü sayesinde bu alanda lider kuruluşlardan biri olarak kabul edilmektedir.</p>
-
+                <p>TORK YAPRAK, çeşitli tiplerde kağıt ürünleri ve defterlerin üretiminde uzmanlaşmış bir şirkettir. Şirket, yüksek kaliteli ürünler sunarak hem yerel hem de uluslararası pazarlarda lider bir konumdadır.</p>
                 <h2>Ürünler:</h2>
-                <p>TORK YAPRAK, aşağıdakiler de dahil olmak üzere geniş bir yelpazede kağıt ürünleri üretme konusunda
-                    uzmanlaşmıştır:</p>
+                <p>Şirketin ürettiği bazı ürünler:</p>
                 <ul>
-                    <li>Çeşitli ebat ve tasarımlarda okul defterleri.</li>
-                    <li>İşletmelerin ve bireylerin ihtiyaçlarına yönelik profesyonel defterler.</li>
-                    <li>Her türlü yazıcıya uygun, yüksek kaliteli baskı ve yazım kağıtları.</li>
-                    <li>Planlayıcılar, eskiz kağıtları ve daha fazlası gibi diğer kağıt ürünleri.</li>
+                    <li>Çeşitli ebatlarda okul defterleri.</li>
+                    <li>İşletmeler için profesyonel defterler.</li>
+                    <li>Yüksek kaliteli baskı kağıtları.</li>
+                    <li>Planlayıcılar ve eskiz kağıtları.</li>
                 </ul>
-
                 <h2>Kalite ve Yenilik:</h2>
-                <p>Şirket, kaliteleri ve uzun ömürleriyle öne çıkan dayanıklı ürünler sağlamak için üretim süreçlerinde
-                    en iyi hammaddelerin ve en son teknolojilerin kullanımına vurgu yapmaktadır. TORK YAPRAK ayrıca
-                    müşterilerinin çeşitli ihtiyaçlarını karşılamak için tasarımlarında sürekli yeniliğe kendini
-                    adamıştır.</p>
-
+                <p>En iyi hammaddeler ve en son teknolojiler kullanılarak kaliteli ve dayanıklı ürünler üretilmektedir.</p>
                 <h2>Sürdürülebilirlik:</h2>
-                <p>TORK YAPRAK'ın faaliyetlerinin merkezinde sürdürülebilirlik yer almakta olup, hammadde seçiminden
-                    atık yönetimine kadar üretimin her aşamasında çevreye duyarlı uygulamalara bağlı kalınmaktadır.</p>
-
-                <h2>Pazar ve Konum:</h2>
-                <p>Şirket, yerel ve uluslararası pazarlarda güçlü bir varlığa sahip olup, yüksek rekabet gücü sayesinde
-                    okullar, işletmeler ve bireysel tüketiciler için tercih edilen bir seçenektir.</p>
-
-                <p>Özetle, TORK YAPRAK, pazar ihtiyaçlarına yönelik derin bir anlayış ve kapsamlı deneyimle desteklenen,
-                    yenilikçi ve yüksek kaliteli kağıt çözümleri arayanlar için güvenilir bir ortaktır.</p>
-
-                <h2>Alanında 25 Yıllık Deneyimimiz Var</h2>
-                <p>Hikayemiz, 25 yıl önce kağıt sektöründeki yolculuğumuza başladığımız Filistin'de başlıyor.
-                    İşletmemizi küresel olarak genişletme çabamız kapsamında, şirketimizi Türkiye'de kurduk ve burada
-                    kalkınma ve refaha doğru yolculuğumuza devam ettik.</p>
-
-                <div class="footer">
-                    © 2024 TORK YAPRAK - Tüm hakları saklıdır
-                </div>
+                <p>Çevreye duyarlı uygulamalarla sürdürülebilirlik odaklı üretim yapılır.</p>
+                <h2>Pazarda Güçlü Konum:</h2>
+                <p>Yerel ve uluslararası pazarlarda güçlü bir varlığa sahiptir.</p>
+                <h2>25 Yıllık Deneyim:</h2>
+                <p>Hikayemiz 25 yıl önce Filistin'de başladı ve Türkiye'ye genişleyerek uluslararası bir marka haline geldi.</p>
+                <div class="footer">© 2024 TORK YAPRAK - Tüm hakları saklıdır</div>
             </div>
 
             <div v-if="locale === 'en'" class="container">
                 <h1>TORK YAPRAK</h1>
-                <p>TORK YAPRAK is a specialized company in the production of paper products and notebooks of various
-                    types. The company is recognized as one of the leading entities in this field, thanks to its
-                    commitment to delivering high-quality products that meet the needs of both local and international
-                    markets.</p>
-
-                <h2>Products:</h2>
-                <p>TORK YAPRAK specializes in producing a wide range of paper products, including:</p>
+                <p>TORK YAPRAK is a leading company specializing in the production of paper products and notebooks. Renowned for our commitment to quality, we serve local and international markets with products that meet the needs of students, professionals, and organizations.</p>
+                <h2>Our Products:</h2>
+                <p>We offer a wide range of paper products, including:</p>
                 <ul>
                     <li>School notebooks in various sizes and designs.</li>
-                    <li>Professional notebooks catering to the needs of businesses and individuals.</li>
-                    <li>High-quality printing and writing papers suitable for all types of printers.</li>
-                    <li>Other paper products such as planners, sketch papers, and more.</li>
+                    <li>Professional notebooks for business and personal use.</li>
+                    <li>High-quality printing papers suitable for all printers.</li>
+                    <li>Other products like planners and sketch papers.</li>
                 </ul>
-
                 <h2>Quality and Innovation:</h2>
-                <p>The company emphasizes the use of the best raw materials and the latest technologies in manufacturing
-                    processes to ensure durable products that stand out for their quality and longevity. TORK YAPRAK is
-                    also committed to continuous innovation in its designs to meet the diverse needs of its customers.
-                </p>
-
+                <p>We use the best raw materials and advanced technologies to produce durable, high-quality products.</p>
                 <h2>Sustainability:</h2>
-                <p>Sustainability is at the core of TORK YAPRAK's operations, with a commitment to environmentally
-                    responsible practices at every stage of production, from selecting raw materials to waste
-                    management.</p>
-
-                <h2>Market and Position:</h2>
-                <p>The company holds a strong presence in both local and international markets, with a high level of
-                    competitiveness that makes it a preferred choice for schools, businesses, and individual consumers
-                    alike.</p>
-
-                <p>In summary, TORK YAPRAK is a trusted partner for those seeking innovative and high-quality paper
-                    solutions, backed by extensive experience and a deep understanding of market needs.</p>
-
-                <h2>We Have 25 Years of Experience in the Field</h2>
-                <p>Our story begins in Palestine, where we started our journey in the paper field 25 years ago. In our
-                    endeavor to expand our business globally, we established our company in Turkey, where our journey
-                    towards development and prosperity continued.</p>
-
-                <div class="footer">
-                    © 2024 TORK YAPRAK - All rights reserved
-                </div>
+                <p>Sustainability is at the core of our operations, ensuring eco-friendly practices at every production stage.</p>
+                <h2>Market Presence:</h2>
+                <p>We are a trusted choice in local and global markets.</p>
+                <h2>25 Years of Experience:</h2>
+                <p>Our journey began in Palestine 25 years ago, expanding into Turkey to continue our path toward innovation.</p>
+                <div class="footer">© 2024 TORK YAPRAK - All rights reserved</div>
             </div>
-
         </div>
     </div>
 </template>
+
 
 <style>
 body {

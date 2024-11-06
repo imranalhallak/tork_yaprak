@@ -23,7 +23,7 @@ class ProductResource extends JsonResource
             'type_of_spiral'=>$this->type_of_spiral,
             'price' => $this->price,
             'code' => $this->code,
-            'image' => $this->image,
+            'images' => $this->images,
 
             'created_at' => $this->created_at->format(' j F, Y'), // Example format: October 19, 2024
             'updated_at' => $this->updated_at,

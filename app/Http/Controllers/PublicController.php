@@ -12,7 +12,7 @@ class PublicController extends Controller
     public function show()
     {
         // Load the branch, with categories and their products
-        $categories = Category::all();
+        $categories = Category::orderBy('position', 'asc')->get();
 
         // Return the data using Inertia
         return Inertia::render('Welcome', [

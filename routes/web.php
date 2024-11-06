@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 Route::get('/about', [PublicController::class, 'create'])->name('about');
 Route::get('/', action: [PublicController::class, 'show']);
+Route::get('/test', action: [CategoryController::class, 'test']);
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -38,7 +39,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('admin/category')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('categories.index'); // Get all categories and display in Inertia component
-                Route::get('/test', [CategoryController::class, 'test'])->name('categories.test'); // Delete a menu
+                // Route::get('/test', [CategoryController::class, 'test'])->name('categories.test'); // Delete a menu
 Route::get('create', [CategoryController::class, 'create'])->name('categories.create'); // Display form to create a new menu
         Route::post('/', [CategoryController::class, 'store'])->name('categories.store'); // Create a new menu
         Route::get('{id}', [CategoryController::class, 'show'])->name('categories.show'); // Display a specific menu
@@ -53,6 +54,8 @@ Route::get('create', [CategoryController::class, 'create'])->name('categories.cr
         Route::get('{id}', [ProductController::class, 'show'])->name('products.show'); // Display a specific menu
         Route::get('{id}/edit', [ProductController::class, 'edit'])->name('products.edit'); // Display form to edit a menu
         Route::post('/{id}', [ProductController::class, 'update'])->name('products.update'); // Update a menu
+        Route::post('/d/{id}', [ProductController::class, 'deleteImage'])->name('products.delete-image'); // Update a menu
+        Route::post('/o/{id}', [ProductController::class, 'orderImage'])->name('products.order-image'); // Update a menu
         Route::delete('{id}', [ProductController::class, 'destroy'])->name('products.destroy'); // Delete a menu
     });
 

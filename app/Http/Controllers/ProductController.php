@@ -17,7 +17,8 @@ class ProductController extends Controller
     {
         $categoryId = $request->query('category_id');
 
-        $productsQuery = Product::with('category')
+        $productsQuery = Product::search($request)->with('category')
+
             ->when($categoryId, function ($query) use ($categoryId) {
                 $query->whereHas('category', fn($q) => $q->where('id', $categoryId));
             });
@@ -96,35 +97,40 @@ class ProductController extends Controller
 
     // Update the specified product in storage.
     public function update(UpdateProductRequest $request, int $id)
-    {
-        $product = Product::findOrFail($id);
+{
+    // Validate request inputs
+    $request->validated();
 
-        $imagePaths = [];
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                // Store the image in the 'public/product_images' directory
-                $imagePath = $image->store('product_images', 'public');
-                $image->move('product_images', $imagePath);
-                $imagePaths[] = $imagePath; // Add the path to the array
-            }
+    // Find the product by ID
+    $product = Product::findOrFail($id);
+
+    $imagePaths = $product->images ? json_decode($product->images, true) : [];
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            // Store the image in the 'public/product_images' directory
+            $imagePath = $image->store('product_images', 'public');
+            $image->move('product_images', $imagePath);
+            $imagePaths[] = $imagePath; // Add the path to the array
         }
-
-        // Update the product's attributes
-        $product->update([
-            'category_id' => $request->category_id,
-            'notebook_size' => $request->notebook_size,
-            'cover_type' => $request->cover_type,
-            'paper_weight' => $request->paper_weight,
-            'number_of_pages' => $request->number_of_pages,
-            'notebook_ruling' => $request->notebook_ruling,
-            'type_of_spiral' => $request->type_of_spiral,
-            'code' => $request->code,
-            'images' => json_encode($imagePaths), // Convert array to JSON
-            'updated_at' => now(),
-        ]);
-
-        return redirect()->route('products.index')->with('success', 'Product updated successfully!');
     }
+
+    // Update the product's attributes
+    $product->update([
+        'category_id' => $request->category_id,
+        'notebook_size' => $request->notebook_size,
+        'cover_type' => $request->cover_type,
+        'paper_weight' => $request->paper_weight,
+        'number_of_pages' => $request->number_of_pages,
+        'notebook_ruling' => $request->notebook_ruling,
+        'type_of_spiral' => $request->type_of_spiral,
+        'code' => $request->code,
+        'images' => !empty($imagePaths) ? json_encode($imagePaths) : $product->images, // Retain current images if none are uploaded
+        'updated_at' => now(),
+    ]);
+
+    return redirect()->route('products.index')->with('success', 'Product updated successfully!');
+}
+
 
 
     // Remove the specified product from storage.
@@ -135,6 +141,33 @@ class ProductController extends Controller
 
         return redirect()->route('products.index');
     }
+    public function deleteImage(Request $request, $id)
+    {
+
+        $product = Product::findOrFail($id);
+
+
+        // Update the product's images field with the remaining images
+        $product->images = $request->images;
+        $product->save();
+
+        // Return a response (adjust as needed for your frontend)
+        return redirect()->back()->with('success', 'Image deleted successfully!');
+    }
+    public function orderImage(Request $request, $id)
+    {
+
+        $product = Product::findOrFail($id);
+
+
+        // Update the product's images field with the remaining images
+        $product->images = $request->images;
+        $product->save();
+
+        // Return a response (adjust as needed for your frontend)
+        return redirect()->back()->with('success', 'Images ordered successfully!');
+    }
+
 
     // Helper method to handle image uploads
     private function handleImageUploads($images)
